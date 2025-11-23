@@ -92,7 +92,7 @@ function tutup() {
   height: 70%;
   border-radius: 50%;
   display: flex;
- 	align-items: center;
+  align-items: center;
   justify-content: center;
   background: #fee4e2;
 }

@@ -196,16 +196,14 @@ function presensi(row) {
 <style scoped>
 .page {
   min-height: 100vh;
-  display: flex;
-  justify-content: center;
   align-items: center;
   padding: 24px 16px 40px;
   box-sizing: border-box;
+  width: 100%;
 }
 
 .page-inner {
   width: 100%;
-  max-width: 430px;
 }
 
 .title {
@@ -397,10 +395,6 @@ tr:hover {
 }
 
 @media (min-width: 768px) {
-  .page-inner {
-    max-width: 900px;
-  }
-
   .title {
     font-size: 32px;
   }
