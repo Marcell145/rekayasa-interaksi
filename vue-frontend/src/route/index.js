@@ -4,6 +4,7 @@ import Home from "../views/home.vue"
 import Jadwal from "../views/jadwalKuliah/index.vue"
 import KRS from "../views/krs/index.vue"
 import Surat from "../views/surat/index.vue"
+import Profil from "../views/Profil/index.vue"
 
 const routes = [
   {
@@ -26,6 +27,12 @@ const routes = [
     name: "surat",
     component: Surat
   },
+  {
+  path: "/profil",
+  name: "profil",
+  component: Profil
+}
+
 ]
 
 const router = createRouter({

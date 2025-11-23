@@ -8,38 +8,38 @@
 
       <ul class="menu">
         <li>
-          <router-link to="/"
-            ><div class="icon icon-1"></div>
-            Profil</router-link
-          >
+          <router-link to="/profil">
+            <div class="icon icon-1"></div>
+            Profil
+          </router-link>
         </li>
         <li>
-          <router-link to="/"
-            ><span class="icon icon-2"></span>
+          <router-link to="/">
+            <span class="icon icon-2"></span>
             <p>Hasil Studi</p>
           </router-link>
         </li>
         <li>
-          <router-link to="/"
-            ><span class="icon icon-3"></span>
-            <p>KRS</p></router-link
-          >
+          <router-link to="/">
+            <span class="icon icon-3"></span>
+            <p>KRS</p>
+          </router-link>
         </li>
         <li>
-          <router-link to="/jadwal-kuliah"
-            ><span class="icon icon-4"></span>
+          <router-link to="/jadwal-kuliah">
+            <span class="icon icon-4"></span>
             <p>Jadwal Kuliah</p>
           </router-link>
         </li>
         <li>
-          <router-link to="/"
-            ><span class="icon icon-5"></span>
+          <router-link to="/">
+            <span class="icon icon-5"></span>
             <p>Keuangan</p>
           </router-link>
         </li>
         <li>
-          <router-link to="/"
-            ><span class="icon icon-6"></span>
+          <router-link to="/">
+            <span class="icon icon-6"></span>
             <p>Layanan Mandiri</p>
           </router-link>
         </li>
@@ -72,12 +72,18 @@
         <router-view />
       </div>
     </main>
+
+    <!-- Floating Chat -->
+    <FloatingChat />
   </div>
 </template>
 
 <script setup>
 import { ref } from "vue";
 import { useRouter } from "vue-router";
+
+// IMPORT Floating Chat
+import FloatingChat from "./components/FloatingChat.vue";
 
 const router = useRouter();
 const isSidebarOpen = ref(true);
