@@ -1,15 +1,30 @@
 <template>
   <div class="page">
-    <main class="main">
-      <h1 class="page-title">{{ pageTitle }}</h1>
+    <div class="page-inner">
+      <h1 class="title">{{ pageTitle }}</h1>
 
-      <section class="identity">
-        <div class="row"><span class="label">NIM</span><span class="value">{{ mahasiswa.nim }}</span></div>
-        <div class="row"><span class="label">Nama</span><span class="value">{{ mahasiswa.nama }}</span></div>
-        <div class="row"><span class="label">Fakultas</span><span class="value">{{ mahasiswa.fakultas }}</span></div>
-        <div class="row"><span class="label">Program Studi</span><span class="value">{{ mahasiswa.prodi }}</span></div>
-        <div class="row"><span class="label">Status</span><span class="value status">{{ mahasiswa.status }}</span></div>
-      </section>
+      <div class="info-container">
+        <div class="info">
+          <p class="info-label">NIM</p>
+          <p class="info-value">{{ mahasiswa.nim }}</p>
+        </div>
+        <div class="info">
+          <p class="info-label">Nama</p>
+          <p class="info-value">{{ mahasiswa.nama }}</p>
+        </div>
+        <div class="info">
+          <p class="info-label">Fakultas</p>
+          <p class="info-value">{{ mahasiswa.fakultas }}</p>
+        </div>
+        <div class="info">
+          <p class="info-label">Program Studi</p>
+          <p class="info-value">{{ mahasiswa.prodi }}</p>
+        </div>
+        <div class="info">
+          <p class="info-label">Status</p>
+          <p class="info-value status">{{ mahasiswa.status }}</p>
+        </div>
+      </div>
 
       <section class="stats">
         <div class="stats-card">
@@ -48,112 +63,127 @@
           • Klik baris tabel untuk melihat detail riwayat.
         </p>
       </section>
+    </div>
 
-      <button class="fab" type="button" @click="toggleHelp">
-        💬
-      </button>
-    </main>
   </div>
 </template>
 
 <script setup>
-import { ref, computed } from 'vue'
-import LayananHome from '../../components/SuratLayananMandiri/LayananHome.vue'
-import CutiSection from '../../components/SuratLayananMandiri/CutiSection.vue'
-import AktifSection from '../../components/SuratLayananMandiri/AktifSection.vue'
+import { ref, computed } from "vue";
+import LayananHome from "../../components/LayananHome.vue";
+import CutiSection from "../../components/CutiSection.vue";
+import AktifSection from "../../components/AktifSection.vue";
 
-const view = ref('home')
-const showHelp = ref(false)
+const view = ref("home");
+const showHelp = ref(false);
 
 const mahasiswa = ref({
-  nim: '202210370311272',
-  nama: 'Gemilang Rizmart Samopdra',
-  fakultas: 'Fakultas Teknik',
-  prodi: 'Informatika',
-  status: 'Aktif'
-})
+  nim: "202210370311272",
+  nama: "Gemilang Rizmart Samopdra",
+  fakultas: "Fakultas Teknik",
+  prodi: "Informatika",
+  status: "Aktif",
+});
 
 const tabelCuti = ref([
-  { tahunAjar: '2023/2024', semesterAjar: '3' },
-  { tahunAjar: '2024/2025', semesterAjar: '5' }
-])
+  { tahunAjar: "2023/2024", semesterAjar: "3" },
+  { tahunAjar: "2024/2025", semesterAjar: "5" },
+]);
 
-const tabelAktif = ref([
-  { tahunAjar: '2025/2026', semesterAjar: '7' }
-])
+const tabelAktif = ref([{ tahunAjar: "2025/2026", semesterAjar: "7" }]);
 
-const jumlahCuti = computed(() => tabelCuti.value.length)
-const jumlahAktif = computed(() => tabelAktif.value.length)
+const jumlahCuti = computed(() => tabelCuti.value.length);
+const jumlahAktif = computed(() => tabelAktif.value.length);
 
 const pageTitle = computed(() => {
-  if (view.value === 'cuti') return 'Cuti'
-  if (view.value === 'aktif') return 'Aktif Kembali'
-  return 'Layanan Mandiri'
-})
+  if (view.value === "cuti") return "Cuti";
+  if (view.value === "aktif") return "Aktif Kembali";
+  return "Layanan Mandiri";
+});
 
 const goHome = () => {
-  view.value = 'home'
-}
+  view.value = "home";
+};
 
 const goToCuti = () => {
-  view.value = 'cuti'
-}
+  view.value = "cuti";
+};
 
 const goToAktif = () => {
-  view.value = 'aktif'
-}
-
-const toggleHelp = () => {
-  showHelp.value = !showHelp.value
-}
+  view.value = "aktif";
+};
 </script>
 
 <style>
 .page {
-  min-height: 100vh;
-  background: #f0f2f5;
+  min-height: auto;
+  width: 100%;
+  box-sizing: border-box;
+  padding: 24px 16px 40px;
   display: flex;
   justify-content: center;
-  padding: 40px 16px;
 }
 
-.main {
+.page-inner {
   width: 100%;
-  max-width: 520px;
+  max-width: 430px;
+  margin: 0 auto;
   background: #ffffff;
-  border-radius: 12px;
-  padding: 24px 20px 80px;
-  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.06);
-  position: relative;
+  border-radius: 25px;
+  padding: 20px 16px 28px;
+  box-shadow: 0 4px 14px rgba(15, 23, 42, 0.08);
+  transition:
+    box-shadow 0.25s ease,
+    transform 0.25s ease;
 }
 
-.page-title {
-  font-size: 22px;
-  font-weight: 600;
-  margin-bottom: 18px;
+.page-inner:hover {
+  box-shadow:
+    0 12px 30px rgba(0, 0, 0, 0.15),
+    0 20px 45px rgba(0, 0, 0, 0.12);
+  transform: translateY(-2px);
 }
 
-.identity {
-  margin-bottom: 18px;
+@media (min-width: 768px) {
+  .page-inner {
+    max-width: 900px;
+    padding: 24px 24px 32px;
+  }
 }
 
-.row {
+@media (min-width: 1200px) {
+  .page-inner {
+    max-width: 1100px;
+  }
+}
+
+.title {
+  font-size: 28px;
+  font-weight: 700;
+  color: #555;
+  margin-bottom: 24px;
+}
+
+.info-container {
   display: flex;
-  margin-bottom: 6px;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 24px;
 }
 
-.label {
-  width: 120px;
+.info-label {
   font-size: 13px;
-  color: #666666;
+  color: #6b7280;
+  margin: 0;
 }
 
-.value {
-  font-size: 13px;
-  color: #111111;
+.info-value {
+  font-size: 14px;
+  color: #111827;
+  margin: 0;
 }
 
-.status {
+.info-value.status {
   font-weight: 600;
   color: #2e7d32;
 }
@@ -362,38 +392,5 @@ const toggleHelp = () => {
 
 .help-text {
   line-height: 1.4;
-}
-
-.fab {
-  position: fixed;
-  right: 24px;
-  bottom: 24px;
-  width: 52px;
-  height: 52px;
-  background: #f44336;
-  color: #ffffff;
-  border-radius: 50%;
-  border: none;
-  font-size: 24px;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  box-shadow: 0 4px 14px rgba(244, 67, 54, 0.5);
-  transition:
-    transform 0.2s ease,
-    box-shadow 0.2s ease,
-    background-color 0.2s ease;
-}
-
-.fab:hover {
-  transform: translateY(-2px) scale(1.03);
-  box-shadow: 0 6px 18px rgba(244, 67, 54, 0.6);
-  background: #e53935;
-}
-
-.fab:active {
-  transform: translateY(0) scale(0.98);
-  box-shadow: 0 3px 10px rgba(244, 67, 54, 0.45);
 }
 </style>

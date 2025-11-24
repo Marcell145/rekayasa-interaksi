@@ -1,6 +1,5 @@
 <template>
   <div class="container">
-    <!-- Sidebar -->
     <aside :class="['sidebar', { open: isSidebarOpen }]">
       <div class="logo">
         <img src="../src/assets/UMM_Logo.svg" alt="UMM Logo" />
@@ -8,19 +7,19 @@
 
       <ul class="menu">
         <li>
-          <router-link to="/editprofile"
+          <router-link to="/profile"
             ><div class="icon icon-1"></div>
             Profil</router-link
           >
         </li>
         <li>
-          <router-link to="/">
+          <router-link to="#">
             <span class="icon icon-2"></span>
             <p>Hasil Studi</p>
           </router-link>
         </li>
         <li>
-          <router-link to="/">
+          <router-link to="/krs">
             <span class="icon icon-3"></span>
             <p>KRS</p>
           </router-link>
@@ -38,7 +37,7 @@
           </router-link>
         </li>
         <li>
-          <router-link to="/">
+          <router-link to="/surat">
             <span class="icon icon-6"></span>
             <p>Layanan Mandiri</p>
           </router-link>
@@ -46,9 +45,7 @@
       </ul>
     </aside>
 
-    <!-- Main Page -->
     <main :class="{ full: !isSidebarOpen }">
-      <!-- Header -->
       <header class="header">
         <button
           :class="['menu-toggle', { geser: !isSidebarOpen }]"
@@ -73,7 +70,6 @@
       </div>
     </main>
 
-    <!-- Floating Chat -->
     <FloatingChat />
   </div>
 </template>
@@ -82,7 +78,6 @@
 import { ref } from "vue";
 import { useRouter } from "vue-router";
 
-// IMPORT Floating Chat
 import FloatingChat from "./components/FloatingChat.vue";
 
 const router = useRouter();
@@ -98,11 +93,12 @@ function toggleDropdown() {
 }
 
 function viewProfile() {
-  router.push("/profil");
+  router.push("/profile");
 }
 
 function logout() {
   alert("Logout Berhasil");
+  router.push("/login");
 }
 </script>
 
@@ -112,7 +108,6 @@ function logout() {
   height: 100vh;
 }
 
-/* Sidebar */
 .sidebar {
   width: 100px;
   background: #253953;
@@ -213,7 +208,6 @@ p {
   text-decoration: none;
 }
 
-/* Main */
 main {
   margin-left: 100px;
   width: 100%;
@@ -224,7 +218,6 @@ main.full {
   margin-left: 0;
 }
 
-/* Header */
 .header {
   height: 60px;
   background: #f8f8f8;
@@ -245,7 +238,6 @@ main.full {
   left: 0;
 }
 
-/* Dropdown */
 .account {
   display: flex;
   background-color: #fff;
@@ -289,7 +281,6 @@ main.full {
   background: #eee;
 }
 
-/* Page */
 .content {
   padding: 20px;
   width: 100%;

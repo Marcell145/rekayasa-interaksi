@@ -54,27 +54,22 @@ Ketik nomor surat untuk detail lebih lanjut.`
 </script>
 
 <template>
-  <!-- Floating Button -->
   <button class="floating-btn" @click="isOpen = true" v-if="!isOpen">
     💬
   </button>
 
-  <!-- Popup -->
   <div class="chat-popup" v-if="isOpen">
-    <!-- Header -->
     <div class="chat-header">
       <span>UMM Assistant</span>
       <button class="close-btn" @click="isOpen = false">−</button>
     </div>
 
-    <!-- Body -->
     <div class="chat-body">
       <div v-for="(m, i) in messages" :key="i" class="msg-wrapper">
         <p class="chat-bubble" :class="m.from">{{ m.text }}</p>
       </div>
     </div>
 
-    <!-- Input -->
     <div class="chat-input">
       <input
         v-model="input"
@@ -87,7 +82,6 @@ Ketik nomor surat untuk detail lebih lanjut.`
 </template>
 
 <style scoped>
-/* Floating Button */
 .floating-btn {
   position: fixed;
   bottom: 22px;
@@ -103,7 +97,6 @@ Ketik nomor surat untuk detail lebih lanjut.`
   box-shadow: 0 4px 14px rgba(0,0,0,0.25);
 }
 
-/* Chat Popup */
 .chat-popup {
   position: fixed;
   bottom: 20px;
@@ -118,7 +111,6 @@ Ketik nomor surat untuk detail lebih lanjut.`
   box-shadow: 0 6px 18px rgba(0,0,0,0.25);
 }
 
-/* Header */
 .chat-header {
   background: #ff4d4d;
   padding: 14px;
@@ -138,7 +130,6 @@ Ketik nomor surat untuk detail lebih lanjut.`
   cursor: pointer;
 }
 
-/* Body */
 .chat-body {
   flex: 1;
   padding: 16px;
@@ -150,7 +141,6 @@ Ketik nomor surat untuk detail lebih lanjut.`
   margin-bottom: 14px;
 }
 
-/* Bubbles */
 .chat-bubble {
   max-width: 85%;
   padding: 12px;
@@ -172,7 +162,6 @@ Ketik nomor surat untuk detail lebih lanjut.`
   margin-right: auto;
 }
 
-/* Input area */
 .chat-input {
   display: flex;
   padding: 12px;

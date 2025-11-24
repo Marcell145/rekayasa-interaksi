@@ -5,20 +5,20 @@
 
       <div class="info-container">
         <div class="info">
-          <p><strong>NIM</strong></p>
-          <p>202210370311272</p>
+          <p class="info-label">NIM</p>
+          <p class="info-value">202210370311272</p>
         </div>
         <div class="info">
-          <p><strong>Nama</strong></p>
-          <p>Gemilang Rizmart Samopdra</p>
+          <p class="info-label">Nama</p>
+          <p class="info-value">Gemilang Rizmart Samodra</p>
         </div>
         <div class="info">
-          <p><strong>Tahun Akademik</strong></p>
-          <p>2025/2026</p>
+          <p class="info-label">Tahun Akademik</p>
+          <p class="info-value">2025/2026</p>
         </div>
         <div class="info">
-          <p><strong>Semester</strong></p>
-          <p>Ganjil</p>
+          <p class="info-label">Semester</p>
+          <p class="info-value">Ganjil</p>
         </div>
       </div>
 
@@ -195,15 +195,44 @@ function presensi(row) {
 
 <style scoped>
 .page {
-  min-height: 100vh;
-  align-items: center;
-  padding: 24px 16px 40px;
-  box-sizing: border-box;
+  min-height: auto;
   width: 100%;
+  box-sizing: border-box;
+  padding: 24px 16px 40px;
+  display: flex;
+  justify-content: center;
 }
 
 .page-inner {
   width: 100%;
+  max-width: 430px;
+  margin: 0 auto;
+  border-radius: 25px;
+  padding: 20px 16px 28px;
+  box-shadow: 0 4px 14px rgba(15, 23, 42, 0.08);
+  transition:
+    box-shadow 0.25s ease,
+    transform 0.25s ease;
+}
+
+.page-inner:hover {
+  box-shadow:
+    0 12px 30px rgba(0, 0, 0, 0.15),
+    0 20px 45px rgba(0, 0, 0, 0.12);
+  transform: translateY(-2px);
+}
+
+@media (min-width: 768px) {
+  .page-inner {
+    max-width: 900px;
+    padding: 24px 24px 32px;
+  }
+}
+
+@media (min-width: 1200px) {
+  .page-inner {
+    max-width: 1100px;
+  }
 }
 
 .title {
@@ -220,20 +249,22 @@ function presensi(row) {
   margin-bottom: 24px;
 }
 
-.info p:first-child {
+.info-label {
   font-size: 13px;
   color: #6b7280;
+  margin: 0;
 }
 
-.info p:last-child {
+.info-value {
   font-size: 14px;
   color: #111827;
+  margin: 0;
 }
 
 .alert {
-  padding: 16px 18px;
+  padding: 12px 14px;
   border-radius: 18px;
-  margin-top: 16px;
+  margin-top: 12px;
   text-align: center;
   border: none;
 }
@@ -245,14 +276,14 @@ function presensi(row) {
 
 .alert-danger {
   background: #f97373;
-  color: #fff;
+  color: #ffffff;
 }
 
 .alert-header {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 10px;
+  gap: 8px;
 }
 
 .content {
@@ -263,11 +294,11 @@ function presensi(row) {
 
 .alert-title {
   font-weight: 700;
-  font-size: 15px;
+  font-size: 14px;
 }
 
 .alert-desc {
-  font-size: 13px;
+  font-size: 12px;
   margin: 4px 0 0 0;
 }
 
@@ -283,8 +314,8 @@ function presensi(row) {
 
 .icon-wrapper-alert,
 .icon-wrapper-danger {
-  width: 52px;
-  height: 52px;
+  width: 40px;
+  height: 40px;
   border-radius: 999px;
   display: flex;
   align-items: center;
@@ -292,37 +323,35 @@ function presensi(row) {
   background: #fffaeb;
 }
 
-.icon-wrapper-2-alert {
-  width: 70%;
-  height: 70%;
+.icon-wrapper-2-alert,
+.icon-wrapper-2-danger {
+  width: 65%;
+  height: 65%;
   border-radius: 999px;
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+.icon-wrapper-2-alert {
   background: #fef0c7;
 }
 
 .icon-wrapper-2-danger {
-  width: 70%;
-  height: 70%;
-  border-radius: 999px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
   background: #d92d20;
 }
 
 .icon-alert {
-  width: 50%;
-  height: 50%;
+  width: 55%;
+  height: 55%;
   background-image: url("../../assets/alert-triangle.svg");
   background-size: cover;
   background-position: center;
 }
 
 .icon-danger {
-  width: 50%;
-  height: 50%;
+  width: 55%;
+  height: 55%;
   border-radius: 50%;
   background-image: url("../../assets/alert-circle-white.svg");
   background-size: cover;
@@ -383,7 +412,7 @@ tr:hover {
   border-radius: 999px;
   border: none;
   background: #12b76a;
-  color: white;
+  color: #ffffff;
   font-size: 13px;
   font-weight: 600;
   cursor: pointer;
@@ -397,11 +426,6 @@ tr:hover {
 @media (min-width: 768px) {
   .title {
     font-size: 32px;
-  }
-
-  .info-container {
-    flex-direction: column;
-    max-width: 360px;
   }
 
   table {

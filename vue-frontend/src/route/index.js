@@ -1,17 +1,28 @@
 import { createRouter, createWebHistory } from "vue-router"
 
-import Home from "../views/home.vue"
+import Login from "../views/login/index.vue"
+import Profile from "../views/profile/index.vue";
+import EditProfile from "../views/editprofile/index.vue";
 import Jadwal from "../views/jadwalKuliah/index.vue"
 import KRS from "../views/krs/index.vue"
-import Surat from "../views/surat/index.vue"
 import Keuangan from "../views/keuangan/index.vue";
-import Editprofile from "../views/editprofile/index.vue";
+import Surat from "../views/surat/index.vue"
 
 const routes = [
   {
-    path: "/",
-    name: "home",
-    component: Home
+    path: "/login",
+    name: "login",
+    component: Login
+  },
+  {
+    path: "/profile",
+    name: "profile",
+    component: Profile
+  },
+  {
+    path: "/edit-profile",
+    name: "editprofile",
+    component: EditProfile
   },
   {
     path: "/jadwal-kuliah",
@@ -24,19 +35,14 @@ const routes = [
     component: KRS
   },
   {
-    path: "/surat",
-    name: "surat",
-    component: Surat
-  },
-  {
     path: "/keuangan",
     name: "keuangan",
     component: Keuangan,
   },
   {
-    path: "/editprofile",
-    name: "editprofile",
-    component: Editprofile,
+    path: "/surat",
+    name: "surat",
+    component: Surat
   },
 ]
 

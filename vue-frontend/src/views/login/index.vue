@@ -2,21 +2,18 @@
   <div class="page">
     <section class="login-box">
 
-      <!-- LOGO UMM -->
-      <img
+      <!-- <img
         src="/mnt/data/watermark-logo-umm.jpg"
         class="logo"
         alt="Logo UMM"
-      />
+      /> -->
 
-      <!-- TEKS UMM -->
       <h1 class="brand">UMM</h1>
       <p class="brand-sub">u m m . a c . i d</p>
 
       <p class="title">Informasi Mahasiswa</p>
       <p class="subtitle">Universitas Muhammadiyah Malang</p>
 
-      <!-- FORM -->
       <form class="form" @submit.prevent="handleSubmit">
         <input
           v-model="form.nim"
@@ -35,7 +32,6 @@
         <button type="submit" class="btn-login">Login</button>
       </form>
 
-      <!-- FOOTER -->
       <p class="footer">
         Tetap rahasiakan PIC anda meskipun dari teman terdekat, pastikan log
         out setelah transaksi, tetap jaga kerahasiaan identitas pribadi anda

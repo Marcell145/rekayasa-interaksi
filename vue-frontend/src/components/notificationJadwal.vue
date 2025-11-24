@@ -1,6 +1,5 @@
 <template>
   <div class="page">
-    <!-- langsung overlay saja -->
     <div class="overlay"></div>
     <div class="modal-card" role="dialog" aria-modal="true">
       <div class="icon-wrap">
@@ -23,10 +22,22 @@
 </template>
 
 <script setup>
+import { useRoute, useRouter } from "vue-router";
+
 const emit = defineEmits(["close"]);
 
+const route = useRoute();
+const router = useRouter();
+
 function lihat() {
-  emit("close");
+  const isOnJadwalPage =
+    route.name === "JadwalKuliah" || route.path === "/jadwal-kuliah";
+
+  if (isOnJadwalPage) {
+    emit("close");
+  } else {
+    router.push("/jadwal-kuliah");
+  }
 }
 
 function tutup() {
@@ -62,9 +73,6 @@ function tutup() {
   padding: 24px;
   box-shadow: 0 18px 38px rgba(15, 23, 42, 0.45);
   text-align: center;
-}
-
-.modal-card {
   transform: scale(0.95);
   opacity: 0;
   animation: fadeIn 0.25s ease-out forwards;
@@ -143,6 +151,7 @@ function tutup() {
   background: #d93b2b;
   color: white;
 }
+
 .btn.ghost {
   background: white;
   border: 1px solid #ddd;

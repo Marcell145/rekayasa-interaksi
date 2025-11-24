@@ -3,7 +3,6 @@
     <div class="page-inner">
       <h1 class="title">Pemrograman KRS</h1>
 
-      <!-- INFO MAHASISWA -->
       <div class="info-container">
         <div class="info">
           <p class="info-label">NIM</p>
@@ -11,7 +10,7 @@
         </div>
         <div class="info">
           <p class="info-label">Nama</p>
-          <p class="info-value">Gemilang Rizmart Samopdra</p>
+          <p class="info-value">Gemilang Rizmart Samodra</p>
         </div>
         <div class="info">
           <p class="info-label">Tahun Akademik</p>
@@ -23,7 +22,6 @@
         </div>
       </div>
 
-      <!-- ALERT KUNING DI ATAS -->
       <div class="alert alert-warning">
         <div class="alert-header">
           <div class="icon-wrap">
@@ -44,13 +42,11 @@
         </div>
       </div>
 
-      <!-- LIST MATA KULIAH (ACCORDION) -->
       <div
         v-for="(mk, index) in matkulList"
         :key="mk.id"
         class="course-card"
       >
-        <!-- HEADER BISA DIKLIK -->
         <button class="course-header" @click="toggleMatkul(index)">
           <span class="course-title">
             {{ mk.nama }} | Semester {{ mk.semester }} ({{ mk.sks }} SKS)
@@ -58,7 +54,6 @@
           <span class="course-arrow" :class="{ open: mk.isOpen }">⌃</span>
         </button>
 
-        <!-- BODY: TABLE BISA DI-SCROLL -->
         <transition name="accordion">
           <div v-if="mk.isOpen" class="course-body">
             <div class="course-body-scroll">
@@ -194,21 +189,44 @@ function pilihKelas(mk, row) {
 
 <style scoped>
 .page {
-  min-height: 100vh;
+  min-height: auto;
+  width: 100%;
+  box-sizing: border-box;
+  padding: 24px 16px 40px;
   display: flex;
   justify-content: center;
-  padding: 24px 16px 40px;
-  box-sizing: border-box;
 }
 
 .page-inner {
   width: 100%;
   max-width: 430px;
+  margin: 0 auto;
+  background: #ffffff;
+  border-radius: 25px;
+  padding: 20px 16px 28px;
+  box-shadow: 0 4px 14px rgba(15, 23, 42, 0.08);
+  transition:
+    box-shadow 0.25s ease,
+    transform 0.25s ease;
+}
+
+.page-inner:hover {
+  box-shadow:
+    0 12px 30px rgba(0, 0, 0, 0.15),
+    0 20px 45px rgba(0, 0, 0, 0.12);
+  transform: translateY(-2px);
 }
 
 @media (min-width: 768px) {
   .page-inner {
-    max-width: 1200px;
+    max-width: 900px;
+    padding: 24px 24px 32px;
+  }
+}
+
+@media (min-width: 1200px) {
+  .page-inner {
+    max-width: 1100px;
   }
 }
 
@@ -239,9 +257,9 @@ function pilihKelas(mk, row) {
 }
 
 .alert {
-  padding: 16px 18px;
+  padding: 12px 14px;
   border-radius: 18px;
-  margin-top: 16px;
+  margin-top: 12px;
   text-align: center;
   border: none;
 }
@@ -255,7 +273,7 @@ function pilihKelas(mk, row) {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 10px;
+  gap: 8px;
 }
 
 .content {
@@ -266,11 +284,11 @@ function pilihKelas(mk, row) {
 
 .alert-title {
   font-weight: 700;
-  font-size: 15px;
+  font-size: 14px;
 }
 
 .alert-desc {
-  font-size: 13px;
+  font-size: 12px;
   margin: 4px 0 0 0;
 }
 
@@ -281,8 +299,8 @@ function pilihKelas(mk, row) {
 }
 
 .icon-wrapper-alert {
-  width: 52px;
-  height: 52px;
+  width: 40px;
+  height: 40px;
   border-radius: 999px;
   display: flex;
   align-items: center;
@@ -291,8 +309,8 @@ function pilihKelas(mk, row) {
 }
 
 .icon-wrapper-2-alert {
-  width: 70%;
-  height: 70%;
+  width: 65%;
+  height: 65%;
   border-radius: 999px;
   display: flex;
   align-items: center;
@@ -301,8 +319,8 @@ function pilihKelas(mk, row) {
 }
 
 .icon-alert {
-  width: 50%;
-  height: 50%;
+  width: 55%;
+  height: 55%;
   background-image: url("../../assets/alert-triangle.svg");
   background-size: cover;
   background-position: center;
@@ -399,11 +417,10 @@ function pilihKelas(mk, row) {
   padding: 6px 12px;
   border-radius: 999px;
   border: 1px solid #e5e7eb;
-  background: #2CC3FF;
-  color: #fff;
+  background: #2cc3ff;
+  color: #ffffff;
   font-size: 12px;
   cursor: pointer;
   white-space: nowrap;
 }
-
 </style>
