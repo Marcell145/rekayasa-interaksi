@@ -9,5 +9,7 @@
 ### Link Figma
 https://www.figma.com/proto/p6zGlryfi0DnlVu45wTOGC/InfoKHS-RI?node-id=10-44114&p=f&t=MghfYUKQHPjof4D0-1&scaling=scale-down&content-scaling=fixed&page-id=0%3A1&starting-point-node-id=1%3A2
 ### Worksheet
+[Worksheet](Worksheet/)
 ### Low Fidelity Prototype
+[Low Fidelity Mockup](Low%20Fidelity/)
 ### Tabel Pembagian Tugas (Backlog)
