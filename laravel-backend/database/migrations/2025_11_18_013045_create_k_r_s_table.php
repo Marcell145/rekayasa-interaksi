@@ -12,7 +12,12 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('k_r_s', function (Blueprint $table) {
-            $table->id();
+            $table->string('id_matkul')->primary();
+            $table->string('kelas');
+            $table->string('jadwal');
+            $table->string('nilai');
+            $table->integer('kuota');
+            $table->integer('terisi');
             $table->timestamps();
         });
     }

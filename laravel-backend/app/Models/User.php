@@ -11,14 +11,25 @@ class User extends Authenticatable
 {
     use HasFactory, Notifiable;
 
+    protected $primaryKey = 'NIM';   // set primary key ke email
+    public $incrementing = false;      // karena email bukan auto increment
+    protected $keyType = 'string';     // tipe data string
+
     /**
      * The attributes that are mass assignable.
      *
      * @var array<int, string>
      */
     protected $fillable = [
-        'name',
-        'email',
+        'NIM',
+        'nama',
+        'email_UMM',
+        'email_pribadi',
+        'no_ktp',
+        'no_telp',
+        'alamat',
+        'fakultas',
+        'program_studi',
         'password',
     ];
 
