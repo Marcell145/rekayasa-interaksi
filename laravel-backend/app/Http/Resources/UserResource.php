@@ -5,7 +5,7 @@ namespace App\Http\Resources;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class JadwalResource extends JsonResource
+class UserResource extends JsonResource
 {
     //define properti
 public $status;
@@ -42,4 +42,3 @@ $this->message = $message;
             
     }
 }
-
