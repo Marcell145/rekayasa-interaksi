@@ -13,6 +13,8 @@
       <p class="title">Informasi Mahasiswa</p>
       <p class="subtitle">Universitas Muhammadiyah Malang</p>
 
+      <div id="error">hahah</div>
+
       <form class="form" @submit.prevent="handleSubmit">
         <input v-model="form.nim" type="text" placeholder="NIM" class="input" />
 
@@ -47,8 +49,56 @@ const form = ref({
   pic: "",
 });
 
-const handleSubmit = () => {
-  router.push("/profile");
+const handleSubmit = async () => {
+  try {
+    const response = await fetch("http://192.168.0.2:8000/api/login", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+      },
+      body: JSON.stringify({
+        nim: form.value.nim,
+        pin_login: form.value.pic,
+      }),
+    });
+
+    const data_user = await response.json();
+    if (!response.ok) {
+      const err_display = document.getElementById("error");
+      err_display.style.display = "block";
+      err_display.innerText = data_user.message || "Login gagal!";
+      return;
+    }
+
+    const jadwal = await fetch(
+      `http://192.168.0.2:8000/api/Jadwal/${form.value.nim}`,
+      {
+        method: "GET",
+        headers: {
+          Accept: "application/json",
+        },
+      }
+    );
+
+    const data_jadwal = await jadwal.json();
+
+    if (!jadwal.ok) {
+      errorMessage.value = data_jadwal.message || "Login gagal!";
+      return;
+    }
+
+    // simpan user ke localStorage
+    localStorage.setItem("user", JSON.stringify(data_user.data));
+
+    // simpan jadwal ke localStorage
+    localStorage.setItem("jadwal", JSON.stringify(data_jadwal.data));
+
+    // redirect setelah login berhasil
+    router.push("/profile");
+  } catch (err) {
+    err_display.value = "Terjadi kesalahan jaringan!";
+  }
 };
 </script>
 
@@ -110,6 +160,16 @@ const handleSubmit = () => {
   margin: 2px 0 22px;
   font-size: 12px;
   color: #3f51b5;
+}
+
+#error {
+  display: none;
+  color: #e9edef;
+  background-color: rgba(231, 76, 60, 0.88);
+  border-color: rgba(231, 76, 60, 0.88);
+  padding: 15px;
+  border-radius: 6px;
+  margin: 2px 0 22px;
 }
 
 /* FORM */

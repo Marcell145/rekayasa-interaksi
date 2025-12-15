@@ -58,7 +58,7 @@
         </button>
 
         <div class="account" @click="toggleDropdown">
-          <span>Account</span>
+          <span>{{ user?.nama_lengkap }}</span>
           <span class="arrow" :class="{ rotate: dropdownOpen }">▼</span>
 
           <ul v-if="dropdownOpen" class="dropdown">
@@ -78,15 +78,21 @@
 </template>
 
 <script setup>
-import { ref } from "vue";
+import { ref, onMounted } from "vue";
 import { useRouter } from "vue-router";
 
 import FloatingChat from "./components/FloatingChat.vue";
 
+const user = ref(null);
 const router = useRouter();
 const isSidebarOpen = ref(true);
 const dropdownOpen = ref(false);
-
+onMounted(() => {
+  const storedUser = localStorage.getItem("user");
+  if (storedUser) {
+    user.value = JSON.parse(storedUser);
+  }
+});
 function toggleSidebar() {
   isSidebarOpen.value = !isSidebarOpen.value;
 }
@@ -100,7 +106,6 @@ function viewProfile() {
 }
 
 function logout() {
-  alert("Logout Berhasil");
   router.push("/login");
 }
 </script>
@@ -252,8 +257,9 @@ main.full {
   cursor: pointer;
   user-select: none;
   position: relative;
-  height: 50%;
-  width: 100px;
+  height: auto;
+  width: auto;
+  padding: 0 10px;
   box-shadow: 0 1px 1px rgba(15, 23, 42, 0.45);
 }
 
