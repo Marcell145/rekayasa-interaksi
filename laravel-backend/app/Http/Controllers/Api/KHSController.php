@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Api;
 
+use App\Http\Controllers\Controller;
 use App\Models\KHS;
 use App\Http\Resources\KHSResource;
 
@@ -10,7 +11,7 @@ class KHSController extends Controller
 
     public function index($mahasiswaId)
     {
-        $khs = Khs::with([
+        $khs = KHS::with([
                 'semesterAkademik',
                 'detail.kelasKuliah.mataKuliah',
             ])
@@ -18,12 +19,12 @@ class KHSController extends Controller
             ->orderBy('semester_akademik_id')
             ->get();
 
-        return KhsResource::collection($khs);
+        return KHSResource::collection($khs);
     }
 
     public function show($mahasiswaId, $semesterId)
     {
-        $khs = Khs::with([
+        $khs = KHS::with([
                 'semesterAkademik',
                 'detail.kelasKuliah.mataKuliah',
             ])
@@ -31,6 +32,6 @@ class KHSController extends Controller
             ->where('semester_akademik_id', $semesterId)
             ->firstOrFail();
 
-        return new KhsResource($khs);
+        return new KHSResource($khs);
     }
 }

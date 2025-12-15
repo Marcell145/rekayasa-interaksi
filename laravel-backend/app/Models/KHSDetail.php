@@ -18,7 +18,7 @@ class KHSDetail extends Model
 
     public function khs()
     {
-        return $this->belongsTo(KHS::class);
+        return $this->belongsTo(KHS::class, 'khs_id');
     }
 
     public function kelasKuliah()

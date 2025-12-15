@@ -3,11 +3,11 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Models\Krs;
-use App\Models\KrsDetail;
+use App\Models\KRS;
+use App\Models\KRSDetail;
 use App\Models\SemesterAkademik;
 use Illuminate\Http\Request;
-use App\Http\Resources\KrsResource;
+use App\Http\Resources\KRSResource;
 
 class KRSController extends Controller
 {
@@ -15,7 +15,7 @@ class KRSController extends Controller
     {
         $semesterAktif = SemesterAkademik::where('status', 'AKTIF')->firstOrFail();
 
-        $krs = Krs::with([
+        $krs = KRS::with([
                 'semesterAkademik',
                 'detail.kelasKuliah.mataKuliah',
                 'detail.kelasKuliah.dosen',
@@ -30,7 +30,7 @@ class KRSController extends Controller
             ], 404);
         }
 
-        return new KrsResource($krs);
+        return new KRSResource($krs);
     }
 
     public function store(Request $request, $mahasiswaId)
@@ -41,7 +41,7 @@ class KRSController extends Controller
 
         $semesterAktif = SemesterAkademik::where('status', 'AKTIF')->firstOrFail();
 
-        $krs = Krs::firstOrCreate(
+        $krs = KRS::firstOrCreate(
             [
                 'mahasiswa_id' => $mahasiswaId,
                 'semester_akademik_id' => $semesterAktif->id,
@@ -52,7 +52,7 @@ class KRSController extends Controller
             ]
         );
 
-        $exists = KrsDetail::where('krs_id', $krs->id)
+        $exists = KRSDetail::where('krs_id', $krs->id)
             ->where('kelas_kuliah_id', $request->kelas_kuliah_id)
             ->exists();
 
@@ -62,7 +62,7 @@ class KRSController extends Controller
             ], 422);
         }
 
-        KrsDetail::create([
+        KRSDetail::create([
             'krs_id' => $krs->id,
             'kelas_kuliah_id' => $request->kelas_kuliah_id,
         ]);
@@ -74,7 +74,7 @@ class KRSController extends Controller
 
     public function destroy($mahasiswaId, $detailId)
     {
-        $detail = KrsDetail::whereHas('krs', function ($q) use ($mahasiswaId) {
+        $detail = KRSDetail::whereHas('krs', function ($q) use ($mahasiswaId) {
                 $q->where('mahasiswa_id', $mahasiswaId);
             })
             ->findOrFail($detailId);
@@ -90,7 +90,7 @@ class KRSController extends Controller
     {
         $semesterAktif = SemesterAkademik::where('status', 'AKTIF')->firstOrFail();
 
-        $krs = Krs::where('mahasiswa_id', $mahasiswaId)
+        $krs = KRS::where('mahasiswa_id', $mahasiswaId)
             ->where('semester_akademik_id', $semesterAktif->id)
             ->firstOrFail();
 

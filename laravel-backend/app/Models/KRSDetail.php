@@ -20,6 +20,6 @@ class KRSDetail extends Model
 
     public function kelasKuliah()
     {
-        return $this->belongsTo(KelasKuliah::class);
+        return $this->belongsTo(KelasKuliah::class, 'krs_id');
     }
 }

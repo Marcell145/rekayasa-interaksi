@@ -54,8 +54,8 @@ Route::prefix('mahasiswa/{mahasiswa}')->group(function () {
 
 // KRS
 Route::prefix('mahasiswa/{mahasiswa}')->group(function () {
+    Route::post('/krs/submit', [KrsController::class, 'submit']);
     Route::get('/krs', [KrsController::class, 'index']);
     Route::post('/krs', [KrsController::class, 'store']);
     Route::delete('/krs/{detail}', [KrsController::class, 'destroy']);
-    Route::post('/krs/submit', [KrsController::class, 'submit']);
 });
