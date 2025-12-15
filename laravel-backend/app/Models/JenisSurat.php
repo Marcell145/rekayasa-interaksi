@@ -13,9 +13,4 @@ class JenisSurat extends Model
         'nama_surat',
         'deskripsi',
     ];
-
-    public function pengajuanSurat()
-    {
-        return $this->hasMany(PengajuanSurat::class);
-    }
 }

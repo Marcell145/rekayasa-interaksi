@@ -3,9 +3,13 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class PengajuanSurat extends Model
 {
+    use HasFactory;
+
+    // kalau tabelmu bukan default plural, aktifkan:
     protected $table = 'pengajuan_surat';
 
     protected $fillable = [
@@ -21,11 +25,11 @@ class PengajuanSurat extends Model
 
     public function mahasiswa()
     {
-        return $this->belongsTo(Mahasiswa::class);
+        return $this->belongsTo(Mahasiswa::class, 'mahasiswa_id');
     }
 
     public function jenisSurat()
     {
-        return $this->belongsTo(JenisSurat::class);
+        return $this->belongsTo(JenisSurat::class, 'jenis_surat_id');
     }
 }

@@ -42,17 +42,69 @@
       @go-aktif="goToAktif"
     />
 
-    <CutiSection
-      v-else-if="view === 'cuti'"
-      :items="tabelCuti"
-      @back="goHome"
-    />
+    <!-- RIWAYAT CUTI (plain table, bukan tombol) -->
+    <section v-else-if="view === 'cuti'" class="card">
+      <div class="table-wrapper">
+        <div class="table-header-top">
+          <div class="table-title">Riwayat Cuti</div>
+          <input class="search-input" v-model="searchCuti" placeholder="Cari tahun/semester..." />
+        </div>
 
-    <AktifSection
-      v-else-if="view === 'aktif'"
-      :items="tabelAktif"
-      @back="goHome"
-    />
+        <table class="table">
+          <thead>
+            <tr>
+              <th>No</th>
+              <th>Tahun Ajar</th>
+              <th>Semester Ajar</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr v-for="(item, idx) in filteredCuti" :key="item.id" class="table-row">
+              <td>{{ idx + 1 }}</td>
+              <td>{{ item.tahun_ajar }}</td>
+              <td>{{ item.semester_ajar }}</td>
+            </tr>
+            <tr v-if="filteredCuti.length === 0">
+              <td colspan="3" class="empty-cell">Data tidak ditemukan</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <button class="back-button-bottom" @click="goHome">← Kembali</button>
+      </div>
+    </section>
+
+    <!-- RIWAYAT AKTIF KEMBALI (plain table) -->
+    <section v-else-if="view === 'aktif'" class="card">
+      <div class="table-wrapper">
+        <div class="table-header-top">
+          <div class="table-title">Riwayat Aktif Kembali</div>
+          <input class="search-input" v-model="searchAktif" placeholder="Cari tahun/semester..." />
+        </div>
+
+        <table class="table">
+          <thead>
+            <tr>
+              <th>No</th>
+              <th>Tahun Ajar</th>
+              <th>Semester Ajar</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr v-for="(item, idx) in filteredAktif" :key="item.id" class="table-row">
+              <td>{{ idx + 1 }}</td>
+              <td>{{ item.tahun_ajar }}</td>
+              <td>{{ item.semester_ajar }}</td>
+            </tr>
+            <tr v-if="filteredAktif.length === 0">
+              <td colspan="3" class="empty-cell">Data tidak ditemukan</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <button class="back-button-bottom" @click="goHome">← Kembali</button>
+      </div>
+    </section>
 
     <section v-if="showHelp" class="card help-card">
       <div class="help-title">Bantuan Layanan</div>
@@ -67,31 +119,105 @@
 </template>
 
 <script setup>
-import { ref, computed } from "vue";
+import { ref, computed, onMounted } from "vue";
+import { useRoute } from "vue-router";
+import api from "../../api.js";
 import LayananHome from "../../components/LayananHome.vue";
-import CutiSection from "../../components/CutiSection.vue";
-import AktifSection from "../../components/AktifSection.vue";
+
+const route = useRoute();
+const mahasiswaId = route.params.id || 1; // fallback id
 
 const view = ref("home");
 const showHelp = ref(false);
 
 const mahasiswa = ref({
+  nama: "Ferdi Naufal Prasetyo",
   nim: "202210370311272",
-  nama: "Gemilang Rizmart Samopdra",
-  fakultas: "Fakultas Teknik",
-  prodi: "Informatika",
-  status: "Aktif",
+  fakultas: "Teknik",
+  prodi: "Program Studi Informatika",
+  status: "aktif",
 });
 
-const tabelCuti = ref([
-  { tahunAjar: "2023/2024", semesterAjar: "3" },
-  { tahunAjar: "2024/2025", semesterAjar: "5" },
-]);
+// tabel data & default fallback
+const tabelCuti = ref([]);
+const tabelAktif = ref([]);
 
-const tabelAktif = ref([{ tahunAjar: "2025/2026", semesterAjar: "7" }]);
+const defaultCuti = [
+  { id: 1, tahun_ajar: "2023", semester_ajar: "2" },
+  { id: 2, tahun_ajar: "2024", semester_ajar: "3" },
+];
+const defaultAktif = [{ id: 1, tahun_ajar: "2024", semester_ajar: "4" }];
 
-const jumlahCuti = computed(() => tabelCuti.value.length);
-const jumlahAktif = computed(() => tabelAktif.value.length);
+const searchCuti = ref("");
+const searchAktif = ref("");
+
+const filteredCuti = computed(() => {
+  const q = searchCuti.value.trim().toLowerCase();
+  const list = tabelCuti.value.length ? tabelCuti.value : defaultCuti;
+  if (!q) return list;
+  return list.filter(
+    (i) =>
+      String(i.tahun_ajar).toLowerCase().includes(q) ||
+      String(i.semester_ajar).toLowerCase().includes(q)
+  );
+});
+
+const filteredAktif = computed(() => {
+  const q = searchAktif.value.trim().toLowerCase();
+  const list = tabelAktif.value.length ? tabelAktif.value : defaultAktif;
+  if (!q) return list;
+  return list.filter(
+    (i) =>
+      String(i.tahun_ajar).toLowerCase().includes(q) ||
+      String(i.semester_ajar).toLowerCase().includes(q)
+  );
+});
+
+const fetchMahasiswa = async () => {
+  try {
+    const res = await api.get(`/mahasiswa/${mahasiswaId}`);
+    const m = res.data || {};
+    mahasiswa.value = {
+      nama: m.nama ?? m.name ?? mahasiswa.value.nama,
+      nim: m.nim ?? m.nim_mahasiswa ?? mahasiswa.value.nim,
+      fakultas: m.fakultas ?? m.faculty ?? mahasiswa.value.fakultas,
+      prodi: m.prodi ?? m.program_studi ?? mahasiswa.value.prodi,
+      status: m.status ?? mahasiswa.value.status,
+    };
+  } catch (e) {
+    console.error("fetchMahasiswa error", e);
+  }
+};
+
+const fetchPengajuanSurat = async () => {
+  try {
+    const res = await api.get("/pengajuan-surat", {
+      params: { mahasiswa_id: mahasiswaId },
+    });
+    const data = res.data || [];
+    const cuti = data.filter((i) =>
+      i.jenis_surat?.nama_surat?.toLowerCase().includes("cuti")
+    );
+    const aktif = data.filter(
+      (i) => !i.jenis_surat?.nama_surat?.toLowerCase().includes("cuti")
+    );
+
+    tabelCuti.value = cuti.length ? cuti : defaultCuti;
+    tabelAktif.value = aktif.length ? aktif : defaultAktif;
+  } catch (e) {
+    console.error("fetchPengajuanSurat error", e);
+    tabelCuti.value = defaultCuti;
+    tabelAktif.value = defaultAktif;
+  }
+};
+
+onMounted(() => {
+  fetchMahasiswa();
+  fetchPengajuanSurat();
+});
+
+const jumlahCuti = computed(() => (tabelCuti.value.length ? tabelCuti.value.length : defaultCuti.length));
+const jumlahAktif = computed(() => (tabelAktif.value.length ? tabelAktif.value.length : defaultAktif.length));
 
 const pageTitle = computed(() => {
   if (view.value === "cuti") return "Cuti";
@@ -99,18 +225,14 @@ const pageTitle = computed(() => {
   return "Layanan Mandiri";
 });
 
-const goHome = () => {
-  view.value = "home";
-};
-
-const goToCuti = () => {
-  view.value = "cuti";
-};
-
-const goToAktif = () => {
-  view.value = "aktif";
-};
+const goHome = () => (view.value = "home");
+const goToCuti = () => (view.value = "cuti");
+const goToAktif = () => (view.value = "aktif");
 </script>
+
+<style>
+/* ...existing styles... */
+</style>
 
 <style>
 .page {
