@@ -15,7 +15,7 @@ class KRSDetail extends Model
 
     public function krs()
     {
-        return $this->belongsTo(Krs::class);
+        return $this->belongsTo(KRS::class);
     }
 
     public function kelasKuliah()

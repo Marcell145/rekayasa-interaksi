@@ -11,7 +11,7 @@ use App\Http\Resources\MahasiswaResource;
 use Illuminate\Support\Facades\Hash;
 class MahasiswaController extends Controller
 {
-   public function login(Request $request)// POST
+   public function login(Request $request)
 {
     $request->validate([
         'nim'    => [
@@ -209,5 +209,3 @@ public function update(Request $request, $NIM) //PUT
 }
 
 }
-
-

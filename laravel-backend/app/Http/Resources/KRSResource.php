@@ -7,7 +7,6 @@ use Illuminate\Http\Resources\Json\JsonResource;
 
 class KRSResource extends JsonResource
 {
-    //define properti
 public $status;
 public $message;
 public $resource;
@@ -39,6 +38,6 @@ $this->message = $message;
             'message' => $this->message,
             'data' => $this->resource
             ];
-            
+
     }
 }
